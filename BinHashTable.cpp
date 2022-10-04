@@ -1,7 +1,7 @@
 #include "BinHashTable.h"
 
 
-BinHashTable::BinHashTable(string filename, bool createNewFile) {
+BinHashTable::BinHashTable(const string& filename, bool createNewFile) {
     this->recordsCount = 0;
     this->filename = filename;
 
@@ -55,3 +55,8 @@ PhoneUser BinHashTable::get(char *phone) {
 
     return getRecord(this->filename, oldN);
 }
+
+void BinHashTable::addRecordFromFile(const string &otherFilename, int n) {
+    this->add(getRecord(otherFilename, n));
+}
+

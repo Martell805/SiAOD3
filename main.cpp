@@ -59,6 +59,16 @@ void testBinHashTable(){
 
     BinHashTable newBinHashTable("../bht.dat", false);
     binHashTable.printTable();
+    cout << endl;
+
+    convertTextToBinary("../records.txt", "../records.dat");
+
+    binHashTable.addRecordFromFile("../records.dat", 2);
+
+    printBinaryFile("../bht.dat");
+    cout << endl;
+    binHashTable.printTable();
+    cout << endl;
 }
 
 int main() {
