@@ -1,6 +1,7 @@
 #include <iostream>
 #include "HashTable.h"
 #include "BinHashTable.h"
+#include "chrono"
 
 using namespace std;
 
@@ -71,6 +72,86 @@ void testBinHashTable(){
     cout << endl;
 }
 
+void millionTest(){
+    HashTable hashTable1k;
+
+    for(char char1 = '0'; char1 <= '9'; char1++)
+        for(char char2 = '0'; char2 <= '9'; char2++)
+            for(char char3 = '0'; char3 <= '9'; char3++) {
+                    char phone[10] = {char1, char2, char3, '0', '0', '0', '0', '0', '0'};
+                    hashTable1k.add(phone, 0);
+                }
+
+    cout << hashTable1k.getSize() << endl;
+
+    auto start = chrono::steady_clock::now();
+    int n = hashTable1k.get("123400000");
+    auto end = chrono::steady_clock::now();
+
+    auto elapsed = chrono::duration_cast<chrono::microseconds>(end - start);
+    cout << "Microseconds with 1_000: " << elapsed.count() << endl;
+
+    HashTable hashTable10k;
+
+    for(char char1 = '0'; char1 <= '9'; char1++)
+        for(char char2 = '0'; char2 <= '9'; char2++)
+            for(char char3 = '0'; char3 <= '9'; char3++)
+                for(char char4 = '0'; char4 <= '9'; char4++) {
+                        char phone[10] = {char1, char2, char3, char4, '0', '0', '0', '0', '0'};
+                        hashTable10k.add(phone, 0);
+                    }
+
+    cout << hashTable10k.getSize() << endl;
+
+    start = chrono::steady_clock::now();
+    n = hashTable10k.get("123400000");
+    end = chrono::steady_clock::now();
+
+    elapsed = chrono::duration_cast<chrono::microseconds>(end - start);
+    cout << "Microseconds with 10_000: " << elapsed.count() << endl;
+
+    HashTable hashTable100k;
+
+    for(char char1 = '0'; char1 <= '9'; char1++)
+        for(char char2 = '0'; char2 <= '9'; char2++)
+            for(char char3 = '0'; char3 <= '9'; char3++)
+                for(char char4 = '0'; char4 <= '9'; char4++)
+                    for(char char5 = '0'; char5 <= '9'; char5++) {
+                        char phone[10] = {char1, char2, char3, char4, char5, '0', '0', '0', '0'};
+                        hashTable100k.add(phone, 0);
+                    }
+
+    cout << hashTable100k.getSize() << endl;
+
+    start = chrono::steady_clock::now();
+    n = hashTable100k.get("123450000");
+    end = chrono::steady_clock::now();
+
+    elapsed = chrono::duration_cast<chrono::microseconds>(end - start);
+    cout << "Microseconds with 100_000: " << elapsed.count() << endl;
+
+    HashTable hashTable1m;
+
+    for(char char1 = '0'; char1 <= '9'; char1++)
+        for(char char2 = '0'; char2 <= '9'; char2++)
+            for(char char3 = '0'; char3 <= '9'; char3++)
+                for(char char4 = '0'; char4 <= '9'; char4++)
+                    for(char char5 = '0'; char5 <= '9'; char5++)
+                        for(char char6 = '0'; char6 <= '9'; char6++){
+                            char phone[10] = {char1, char2, char3, char4, char5, char6, '0', '0', '0'};
+                            hashTable1m.add(phone, 0);
+                        }
+
+    cout << hashTable1m.getSize() << endl;
+
+    start = chrono::steady_clock::now();
+    n = hashTable1m.get("123456000");
+    end = chrono::steady_clock::now();
+
+    elapsed = chrono::duration_cast<chrono::microseconds>(end - start);
+    cout << "Microseconds with 1_000_000: " << elapsed.count() << endl;
+}
+
 void task1(){
     string binFilename;
     int command;
@@ -80,7 +161,7 @@ void task1(){
 
     cout << "Enter binary file name:" << endl;
     cin >> binFilename;
-    cout << "Do you want to rewrite or create new file? (1 or 0)" << endl;
+    cout << "Do you want to create new file or open existing? (1 or 0)" << endl;
     cin >> createNewFile;
 
     BinHashTable hashTable("../" + binFilename, createNewFile);
@@ -158,8 +239,10 @@ void task1(){
 }
 
 int main() {
+    millionTest();
+
     int n;
-    cout << "Choose task 0 for testHashTable, 1 for testBinHashTable or 2 for task:" << endl;
+    cout << "Choose task 0 for testHashTable, 1 for testBinHashTable, 2 for millionTest or 3 for task:" << endl;
     cin >> n;
 
     switch(n){
@@ -170,6 +253,9 @@ int main() {
             testBinHashTable();
             break;
         case 2:
+            millionTest();
+            break;
+        case 3:
             task1();
             break;
         default:

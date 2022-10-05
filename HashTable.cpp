@@ -135,3 +135,8 @@ void HashTable::printTable(bool printEmptyElements, bool printDeletedElements){
         else if(el != nullptr && el->state) cout << el->phone << " " << el->n << endl;
     }
 }
+
+int HashTable::getSize() const {
+    return this->size;
+}
+

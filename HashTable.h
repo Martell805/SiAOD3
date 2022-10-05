@@ -41,6 +41,7 @@ public:
     void add(char phone[10], int n);
 
     void printTable(bool printEmptyElements = false, bool printDeletedElements = false);
+    int getSize() const;
 };
 
 
