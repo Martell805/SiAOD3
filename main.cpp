@@ -71,12 +71,109 @@ void testBinHashTable(){
     cout << endl;
 }
 
-int main() {
-    try {
-    testBinHashTable();
-    } catch (int i) {
-        cout << i;
-    }
+void task1(){
+    string binFilename;
+    int command;
+    bool createNewFile;
+    char phone[10], address[50], name[50];
+    PhoneUser phoneUser{};
 
-    return 0;
+    cout << "Enter binary file name:" << endl;
+    cin >> binFilename;
+    cout << "Do you want to rewrite or create new file? (1 or 0)" << endl;
+    cin >> createNewFile;
+
+    BinHashTable hashTable("../" + binFilename, createNewFile);
+
+    while(true){
+        cout << "Choose operation:" << endl;
+        cout << "0 - exit" << endl;
+        cout << "1 - add record" << endl;
+        cout << "2 - get record" << endl;
+        cout << "3 - delete record" << endl;
+        cout << "4 - print file" << endl;
+        cout << "5 - print table" << endl;
+        cin >> command;
+
+        try {
+            switch (command) {
+                case 0:
+                    return;
+                case 1:
+                    cout << "Enter phone:" << endl;
+                    cin >> phone;
+                    strcpy(phoneUser.phone, phone);
+                    cout << "Enter adders:" << endl;
+                    cin >> address;
+                    strcpy(phoneUser.address, address);
+                    cout << "Enter name:" << endl;
+                    cin >> name;
+                    strcpy(phoneUser.name, name);
+
+                    hashTable.add(phoneUser);
+                    break;
+                case 2:
+                    cout << "Enter phone:" << endl;
+                    cin >> phone;
+
+                    phoneUser = hashTable.get(phone);
+                    cout << "Record is:" << endl;
+                    cout << phoneUser.phone << " " << phoneUser.address << " " << phoneUser.name << endl;
+                    break;
+                case 3:
+                    cout << "Enter phone:" << endl;
+                    cin >> phone;
+
+                    hashTable.del(phone);
+                    break;
+                case 4:
+                    cout << "File is:" << endl;
+                    printBinaryFile("../" + binFilename);
+                    break;
+                case 5:
+                    cout << "Table is:" << endl;
+                    hashTable.printTable();
+                    break;
+                default:
+                    cout << "There is no such a command" << endl;
+                    break;
+            }
+        } catch (int errCode) {
+            switch (errCode) {
+                case -1:
+                    cout << "Error in file opening" << endl;
+                    break;
+                case -2:
+                    cout << "Error occurred while working with file" << endl;
+                    break;
+                case -3:
+                    cout << "Trying to access non-existing element" << endl;
+                    break;
+                default:
+                    return;
+            }
+        }
+        cout << endl;
+    }
+}
+
+int main() {
+    int n;
+    cout << "Choose task 0 for testHashTable, 1 for testBinHashTable or 2 for task:" << endl;
+    cin >> n;
+
+    switch(n){
+        case 0:
+            testHashTable();
+            break;
+        case 1:
+            testBinHashTable();
+            break;
+        case 2:
+            task1();
+            break;
+        default:
+            cout << "There is no such a task" << endl;
+            break;
+    }
 }
