@@ -239,8 +239,6 @@ void task1(){
 }
 
 int main() {
-    millionTest();
-
     int n;
     cout << "Choose task 0 for testHashTable, 1 for testBinHashTable, 2 for millionTest or 3 for task:" << endl;
     cin >> n;
