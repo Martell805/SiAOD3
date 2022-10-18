@@ -59,5 +59,3 @@ PhoneUser BinHashTable::get(char *phone) {
 void BinHashTable::addRecordFromFile(const string &otherFilename, int n) {
     this->add(getRecord(otherFilename, n));
 }
-
-

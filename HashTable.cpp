@@ -29,17 +29,8 @@ HashTable::HashTable() {
 
 void HashTable::resize() {
     this->bufferSize *= 2;
-    this->sizeAll = 0;
-    this->size = 0;
 
-    vector<HashElement*> newArr(bufferSize, nullptr);
-    this->arr.swap(newArr);
-
-    for(auto el: newArr){
-        if(el && el->state){
-            add(el->phone, el->n);
-        }
-    }
+    this->rehash();
 }
 
 void HashTable::rehash() {
